@@ -32,7 +32,6 @@ class TwitterAPI(metaclass=Singleton):
                 self.apis.append(authenticated)
             except:
                 print(f'Failure on {x[0]}, does not work any more')
-        print('end init')
 
     @property
     def keysLen(self,):
@@ -43,5 +42,11 @@ class TwitterAPI(metaclass=Singleton):
         return [ alist[i*length // wanted_parts: (i+1)*length // wanted_parts] for i in range(wanted_parts) ]
 
     def statuses_lookup(self,ids):
-        response = self.apis[0].statuses_lookup(ids)
+        #implement max 100 ids per request
+        response = self.apis[0].statuses_lookup(ids,tweet_mode="extended",)
         return response
+
+    def user_timeline(self,screen_name):
+        
+        for x in tweepy.Cursor(self.apis[0].user_timeline, screen_name=screen_name,tweet_mode="extended",count=200).items():
+            return [x]

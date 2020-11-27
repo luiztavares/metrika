@@ -5,6 +5,9 @@ class Hashtag(models.Model):
     tweet_id = models.BigIntegerField()
     id = models.TextField(primary_key=True)
 
+    def __str__(self):
+        return self.hashtag
+
 class UserUrl(models.Model):
     url = models.URLField()
     user_id = models.BigIntegerField()
@@ -14,7 +17,6 @@ class TweetUrl(models.Model):
     url = models.URLField()
     tweet_id = models.BigIntegerField()
     id = models.TextField(primary_key=True)
-
 
 class User(models.Model):
     created_at = models.DateTimeField()
@@ -30,6 +32,9 @@ class User(models.Model):
     statuses_count = models.BigIntegerField()
     avatar = models.URLField(null=True,blank=True)
 
+    def __str__(self):
+        return self.screen_name
+
 class Tweet(models.Model):
     tweet_creation = models.DateTimeField()
     tweet_id = models.BigIntegerField(primary_key=True)
@@ -37,14 +42,17 @@ class Tweet(models.Model):
     content = models.TextField(null =True,blank=True)
     retweet_count = models.BigIntegerField()
     favorite_count = models.BigIntegerField()
-    retweet_count = models.BigIntegerField()
-    retweet = models.BigIntegerField()
+    retweet_id = models.BigIntegerField(null=True,blank=True)
     lang = models.CharField(max_length=10)
+
+    def __str__(self):
+        return self.content
 
 class Mention(models.Model):
     tweet_id = models.BigIntegerField()
     user_id = models.BigIntegerField()
     id = models.TextField(primary_key=True)
+
 
 class TwitterList(models.Model):
     slug = models.TextField()

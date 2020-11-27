@@ -15,9 +15,10 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
-from twitter.views import statuses_lookup
+from twitter.views import statuses_lookup,user_timeline
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('test/', statuses_lookup),
+    path('timeline/', user_timeline),
 ]
