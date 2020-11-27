@@ -1,7 +1,14 @@
 import tweepy
 import json
 
-class TwitterAPI:
+class Singleton(type):
+    _instances = {}
+    def __call__(cls, *args, **kwargs):
+        if cls not in cls._instances:
+            cls._instances[cls] = super(Singleton, cls).__call__(*args, **kwargs)
+        return cls._instances[cls]
+
+class TwitterAPI(metaclass=Singleton):
     def __init__(self):
         self.keys = [['2m2IZIw55y8XMTRLep2gx6van','kcF8ZCrA6yK4zZFVkGYSkEd7W5sopi5GFjJoQLg1n75WA22Vlc'],
                     ['3nVuSoBZnx6U4vzUxf5w','Bcs59EFbbsdF6Sl9Ng71smgStWEGwXXKSjYvPVt7qys'],
@@ -25,6 +32,8 @@ class TwitterAPI:
                 self.apis.append(authenticated)
             except:
                 print(f'Failure on {x[0]}, does not work any more')
+        print('end init')
+
     @property
     def keysLen(self,):
         return len(self.keys)
