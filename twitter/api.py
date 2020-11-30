@@ -50,3 +50,27 @@ class TwitterAPI(metaclass=Singleton):
         
         for x in tweepy.Cursor(self.apis[0].user_timeline, screen_name=screen_name,tweet_mode="extended",count=200).items():
             return [x]
+
+    def get_status(self,tweet_id):
+        #implement max 100 ids per request
+        response = self.apis[0].get_status(tweet_id,tweet_mode="extended",)
+        return response
+
+    def get_user(self,user_id):
+        #implement max 100 ids per request
+        response = self.apis[0].get_user(
+            user_id = user_id,
+            tweet_mode="extended",
+        )
+        return response
+
+    def get_friends(self,user_id):
+        for x in tweepy.Cursor(self.apis[0].friends, user_id=user_id,tweet_mode="extended",count=100).items():
+            yield x._json
+
+    
+    def get_followers(self,user_id):
+        for x in tweepy.Cursor(self.apis[0].followers, user_id=user_id,tweet_mode="extended",count=100).items():
+            yield x._json
+
+    

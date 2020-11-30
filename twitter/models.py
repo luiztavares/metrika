@@ -64,3 +64,8 @@ class TwitterList(models.Model):
     full_name = models.TextField()
     description = models.TextField()
     user_id = models.BigIntegerField()
+
+class Follow(models.Model):
+    source = models.BigIntegerField()
+    target = models.BigIntegerField()
+    id = models.TextField(primary_key=True)

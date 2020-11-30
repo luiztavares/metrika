@@ -106,6 +106,27 @@ def status_parse(input_json):
         tweet_url = tweet_url_parse(tweet.tweet_id,input_json['entities'])
         hashtag = hashtag_parse(tweet.tweet_id,input_json['entities'])
 
+def follow_parse(source = None, target = None):
+    if(source):
+        user = user_parse(target)
+        follow = Follow(
+            source= source,
+            target= user.user_id,
+            id= f'{source}_{user.user_id}'
+        )
+
+    elif(target):
+        user = user_parse(source)
+        follow = Follow(
+            source= user.user_id,
+            target= target,
+            id= f'{user.user_id}_{target}'
+        )
+    else:
+        return
+    
+    follow.save()
+
 
 
 
